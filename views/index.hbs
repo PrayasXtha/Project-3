@@ -2,39 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Document</title>
-    <link rel="stylesheet" href="index.css">
+    <title>One Piece Wikipedia</title>
+   
 </head>
 <body>
-    <h1> Login </h1>
-    <form method="POST">
-        <Label for="username">Username:</Label>
-        <input type="text" id="username" name="useername" >
-        <br><br>
 
-        <label for="password">Password:</label>
-       <input type="password" id="password" name="password" >
-       <br><br>
-      
-       <p>{{message}}</p>
+    <header>
+        <h1>One Piece Wikipedia</h1>
+    </header>
 
-       <input type="submit" name="selection" value="Login">
-    
-
-    <input type="submit" name="selection" value="Create Profile" id="createprofile">
-    </form>
-<script>
-   document.addEventListener("click", function(event) {
-    if (event.target && event.target.id === "createprofile") {
+    <nav>
         
-        window.location.href = "createprofile.hbs";
-    }
-});
+    <a href="#overview">Overview</a> |
+    <a href="#characters">Characters</a> |
+    <a href="#world">World</a> |
+    <a href="#story">Story</a> |
 
+    <a href="/login">Login</a>
 
-</script>
+</nav>
+
+    </nav>
+
+    <section id="overview">
+        <h2>Overview</h2>
+        <p>This is a brief overview of the One Piece series.</p>
+    </section>
+
+    <section id="characters">
+        <h2>Characters</h2>
+        <p>Learn about the fascinating characters in the One Piece world.</p>
+    </section>
+
+    <section id="world">
+        <h2>World</h2>
+        <p>Explore the rich and diverse world of One Piece.</p>
+    </section>
+
+    <section id="story">
+        <h2>Story</h2>
+        <p>Discover the epic story that unfolds in the One Piece series.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 One Piece Wikipedia</p>
+    </footer>
 
 </body>
 </html>
