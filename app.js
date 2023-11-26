@@ -4,10 +4,6 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-// Define a route for the login page
-app.get('/login', function (req, res) {
-    res.render('login'); // Render the login view
-});
 
 const mongoose = require('mongoose');
 mongoose.connect("mongodb://127.0.0.1:27017/login");
@@ -29,6 +25,7 @@ app.engine('hbs', hbs.express4({
     defaultLayout: __dirname + '/views/layout/main.hbs'
 }));
 
+
 const port = process.env.PORT || 3000;
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
@@ -36,6 +33,12 @@ app.set('views', __dirname + '/views');
 app.get('/', function (req, res) {
     res.render('index');
 });
+
+// Define a route for the login page
+app.get('/login', function (req, res) {
+    res.render('login'); // Render the login view
+});
+
 
 app.post('/', function (req, res) {
     const form = req.body;
