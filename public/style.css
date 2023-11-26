@@ -1,12 +1,10 @@
-/* styles.css */
-
-body {
+/* Reset styles */
+body, h1, h2, p, label, input, button {
     margin: 0;
     padding: 0;
-    background-image: url('./img/opbackground.webp');
-    background-size: cover;
-    background-position: center;
-    background-repeat: repeat;
+}
+
+body {
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
@@ -14,6 +12,12 @@ body {
     justify-content: center;
     height: 100vh;
     position: relative;
+    margin: 0;
+    padding: 0;
+    background-image: url('./img/opbackground.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 body::before {
@@ -28,21 +32,56 @@ body::before {
     z-index: -5;
 }
 
-h1, form {
-    position: relative;
-    z-index: 1;
-}
-
-h1 {
-    text-align: center;
+/* Header styles */
+header {
+    background-color: #333;
     color: white;
+    padding: 10px;
+    text-align: center;
 }
 
+/* Navigation styles */
+nav {
+    background-color: #444;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #ffcc00;
+}
+
+/* Section styles */
+section {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Form styles */
 form {
     max-width: 600px;
-    width: 300px;
-    height: auto;
-    background-color: rgba(255, 255, 255, 0.8);
+    width: 80%;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -51,21 +90,19 @@ form {
 label {
     display: block;
     margin-bottom: 8px;
+    font-weight: bold;
 }
 
 input {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     margin-bottom: 16px;
     box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-p {
-    color: rgb(255, 255, 255);
-    margin-bottom: 16px;
-}
-
-#createprofile {
+button {
     background-color: #4CAF50;
     color: white;
     padding: 10px 15px;
@@ -74,12 +111,6 @@ p {
     cursor: pointer;
 }
 
-#createprofile:hover {
+button:hover {
     background-color: #45a049;
-}
-
-img {
-    z-index: 2;
-    max-width: 300px;
-    max-height: auto;
 }

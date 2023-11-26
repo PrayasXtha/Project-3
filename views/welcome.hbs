@@ -3,128 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Welcome Page</title>
+    <link rel="stylesheet" href="style2.css">
 </head>
-<body>
-    
-    <h1>Welcome to Digital Library</h1>
-    <style>
+  <style>
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f0f0f0;
-            text-align: center;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #282c35;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        #header {
+            background-color: #1f2329;
+            padding: 10px;
+        }
+
+        #header img {
+            max-width: 100%;
+            height: auto;
         }
 
         h1 {
-            color: #333;
+            margin: 20px 0;
+            color: #61dafb;
         }
 
-        p {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        form {
-            background-color: #fff;
-            padding: 20px;
-            width: 300px;
-            margin: 0 auto;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-        }
-
-        label {
-            display: block;
-            margin: 10px 0;
-            font-weight: bold;
-        }
-
-        input[type="text"] {
-            width: 80%;
+        button {
+            background-color: #61dafb;
+            color: #282c35;
             padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-
-        input[type="submit"] {
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 3px;
+            margin: 5px;
             cursor: pointer;
-        }
-        button{ background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
             border: none;
-            border-radius: 3px;
-            cursor: pointer;
-              background-color: #fff;
-            padding: 20px;
-            width: 300px;
-            margin: 0 auto;
             border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);s}
+        }
 
-        input[type="submit"]:hover {
-            background-color: #0056b3;
+        button:hover {
+            background-color: #45a8eb;
+        }
+
+        #booksList {
+            margin: 20px;
+            padding: 10px;
+            border: 1px solid #61dafb;
+            border-radius: 5px;
+            background-color: #1f2329;
         }
     </style>
-</head>
+<body>
+    <!-- Update the path to your logo image -->
+    <img src='img/Untitled design (1)-PhotoRoom.png-PhotoRoom.png' alt="Logo"> 
+    <h1 style="color: white;">Welcome to the Manga Store, {{username}}!</h1>
 
-    
-
-    <p>Available Books: <span id="availableBooks">10</span></p>
-
-    <form id="addBookForm">
-
-        <p>Name: {{username}}</p>
-        <label for="bookTitle">Book Title:</label>
-        <input type="text" id="bookTitle" >
-        <br>
-
-        <label for="author">Author:</label>
-        <input type="text" id="author" >
-        <br>
-
-        <input type="submit" value="Add Book">
-        <input type="button" id="logoutButton" value="Log Out">
-    </form>
+    <div id="booksList"></div>
+    <button id="addMangaButton">Add Manga</button>
+    <button id="searchMangaButton">Search Manga</button>
+    <button id="buyMangaButton">Buy Manga</button>
+    <button id="deleteMangaButton">Delete Manga</button>
+    <button id="logoutButton">Log Out</button>
 
     <script>
-        const availableBooksCount = document.getElementById("availableBooks");
-    const addBookForm = document.getElementById("addBookForm");
-    const logoutButton = document.getElementById("logoutButton");
+        
+        const searchMangaButton = document.getElementById("searchMangaButton");
+        const buyMangaButton = document.getElementById("buyMangaButton");
+        const deleteMangaButton = document.getElementById("deleteMangaButton");
+        const logoutButton = document.getElementById("logoutButton");
+        const booksListContainer = document.getElementById("booksList");
+const addMangaButton = document.getElementById("addMangaButton");
 
-    addBookForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-        const bookTitle = document.getElementById("bookTitle").value;
-        const author = document.getElementById("author").value;
+    addMangaButton.addEventListener("click", function () {
+        const title = prompt("Enter the title of the manga:");
+        const author = prompt("Enter the author of the manga:");
 
-        if (bookTitle && author) {
-            let currentCount = parseInt(availableBooksCount.textContent);
-            if (currentCount > 0) {
-                currentCount--;
-                availableBooksCount.textContent = currentCount;
-                alert(`Book "${bookTitle}" by ${author} added.`);
-            } else {
-                alert("No available books left.");
-            }
-            addBookForm.reset();
-        } else {
-            alert("Please enter both book title and author.");
+        if (title && author) {
+            fetch('/addBook', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title, author })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(`Manga "${data.book.title}" added successfully.`);
+                // You can update the UI or take further actions if needed
+            })
+            .catch(error => {
+                console.error('Error adding the manga:', error);
+            });
         }
     });
 
-    // Add event listener for the logout button
-    logoutButton.addEventListener("click", function () {
-        window.location.href = "/"; // Redirect to the login page
-    });
-    </script>
+        searchMangaButton.addEventListener("click", function () {
+            const title = prompt("Enter the title of the manga to search:");
 
+            if (title) {
+                fetch('/searchBook', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ title })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const books = data.books;
+                    if (books.length > 0) {
+                        alert(`Found ${books.length} book(s) with title "${title}".`);
+                        // You can display the books in the UI if needed
+                    } else {
+                        alert(`No books found with title "${title}".`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error searching for books:', error);
+                });
+            }
+        });
+
+        buyMangaButton.addEventListener("click", function () {
+            const title = prompt("Enter the title of the manga to buy:");
+
+            if (title) {
+                fetch('/buyBook', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ title })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(`Book "${data.book.title}" bought successfully.`);
+                    // You can update the UI or take further actions if needed
+                })
+                .catch(error => {
+                    console.error('Error buying the book:', error);
+                });
+            }
+        });
+
+        deleteMangaButton.addEventListener("click", function () {
+            const title = prompt("Enter the title of the manga to delete:");
+
+            if (title) {
+                fetch('/deleteBook', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ title })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(`Book "${data.book.title}" deleted successfully.`);
+                    // You can update the UI or take further actions if needed
+                })
+                .catch(error => {
+                    console.error('Error deleting the book:', error);
+                });
+            }
+        });
+
+        logoutButton.addEventListener("click", function () {
+            window.location.href = "/";
+        });
+    </script>
 </body>
 </html>
