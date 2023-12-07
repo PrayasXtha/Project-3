@@ -1,5 +1,5 @@
 /* Reset styles */
-body, h1, h2, p, label, input, button {
+* {
     margin: 0;
     padding: 0;
 }
@@ -15,9 +15,7 @@ body {
     margin: 0;
     padding: 0;
     background-image: url('./img/opbackground.webp');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+
 }
 
 body::before {

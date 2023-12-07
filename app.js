@@ -155,5 +155,9 @@ app.post('/createprofile', function (req, res) {
 app.get('/welcome', function (req, res) {
     res.render('welcome');
 });
+app.get('/index', function (req, res) {
+    res.render('index');
+});
+
 
 app.listen(port, () => console.log(`Listening on port ${port}!`));
